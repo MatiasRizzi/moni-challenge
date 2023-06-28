@@ -16,3 +16,5 @@ El usuario luego de ingresar los datos debe recibir la respuesta negativa o posi
 Contemplar casos de datos ingresados con errores.
 
 También se debe desarrollar un sitio de administración en el que se puedan ver los pedidos de préstamo, con la opción de editarlos y eliminarlos. A este sitio sólo pueden acceder usuarios administradores. No usar admin de Django.
+
+TODO How to initialize proyect 

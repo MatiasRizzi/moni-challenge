@@ -22,4 +22,4 @@ def controller(request):
     result = requests.get(url, auth=auth)
 
     response = {'state':result.json()['status']}
-    return JsonResponse(result)
+    return JsonResponse(response)
