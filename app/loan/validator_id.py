@@ -11,7 +11,7 @@ def validate_dni(dni: int) -> bool:
     url = f'https://api.moni.com.ar/api/v4/scoring/pre-score/{dni}'
     result = requests.get(url, auth=auth)
     
-    if result.json()['status'] is not STATE_APPROVE:
-        is_approve = False
+    #TODO manage exception Key Value
+    is_approve = result.json()['status'] == STATE_APPROVE
 
     return is_approve
