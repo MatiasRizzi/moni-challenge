@@ -7,6 +7,7 @@ from loan.serializers import LoanSerializer
 
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework.decorators import api_view
 
 
 from loan.models import Loan
@@ -30,7 +31,9 @@ def controller(request):
     response = {'state':result.json()['status']}
     return JsonResponse(response)
 
+@api_view(http_method_names=["post"])
 def create_loan(request):
+
     if request.method == 'GET':
         return HttpResponseNotAllowed()
     
