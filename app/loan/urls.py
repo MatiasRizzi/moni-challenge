@@ -5,4 +5,5 @@ from . import views
 urlpatterns = [
     path('', views.index, name='index'),
     path('get', views.controller, name='proxy'),
+    path('api-loan-create',views.create_loan, name='create_loan')
 ]
