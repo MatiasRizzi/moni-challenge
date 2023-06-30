@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card-body">
+    <h4>Loan List</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">DNI</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Email</th>
+                <th scope="col">Requested amount</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for loan in loans %}
+            <tr>
+                <td>{{ loan.number_dni }}</td>
+                <td>{{ loan.surname }}</td>
+                <td>{{ loan.name }}</td>
+                <td>{{ loan.gender }}</td>
+                <td>{{ loan.email }}</td>
+                <td>{{ loan.requested_amount }}</td>
+                <td><a type="button" class="btn btn-warning" href="/loan-update/{{ loan.id }}">Update</a>
+                    <a type="button" class="btn btn-danger" href="/loan-delete/{{ loan.id }}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

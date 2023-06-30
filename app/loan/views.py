@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse, HttpResponse, HttpResponseNotAllowed
 import requests
 from requests.auth import HTTPBasicAuth
@@ -11,25 +11,12 @@ from rest_framework.decorators import api_view
 
 
 from loan.models import Loan
+from .forms import LoanForm
 
 STATE_APPROVE = 'approve'
 
 def index(request):
     return HttpResponse("Test")
-
-def controller(request):
-    '''
-    intermediate endpoint. Response json with aprove or disallow loan
-    '''
-    auth = HTTPBasicAuth('user', 'ZGpzOTAzaWZuc2Zpb25kZnNubm5u')
-    #TODO manage variable dni and add it the end to url
-    dni = 30156149
-
-    url = f'https://api.moni.com.ar/api/v4/scoring/pre-score/{dni}'
-    result = requests.get(url, auth=auth)
-
-    response = {'state':result.json()['status']}
-    return JsonResponse(response)
 
 @api_view(http_method_names=["post"])
 def create_loan(request):
@@ -45,3 +32,28 @@ def create_loan(request):
     loan = serializer.save()
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+def list_loan(request):
+    loans = Loan.objects.all()  
+    return render(request,"loan-list.html",{'loans':loans}) 
+
+def update_loan(request, id):  
+    loan = Loan.objects.get(id=id)
+    form = LoanForm(initial={'title': loan.title, 'description': loan.description, 'author': loan.author, 'year': loan.year})
+    if request.method == "POST":  
+        form = LoanForm(request.POST, instance=loan)  
+        if form.is_valid():  
+            try:  
+                form.save() 
+                model = form.instance
+                return redirect('/loan-list')  
+            except Exception as e: 
+                pass    
+    return render(request,'loan-update.html',{'form':form})  
+
+def delete_loan(request, id):
+    loan = Loan.objects.get(id=id)
+    try:
+        loan.delete()
+    except:
+        pass
+    return redirect('loan-list')
