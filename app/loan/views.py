@@ -13,6 +13,8 @@ from rest_framework.decorators import api_view
 from loan.models import Loan
 from .forms import LoanForm
 
+from django.contrib.auth.decorators import login_required
+
 STATE_APPROVE = 'approve'
 
 def index(request):
@@ -32,10 +34,12 @@ def create_loan(request):
     loan = serializer.save()
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+@login_required(login_url='admin_login')
 def list_loan(request):
     loans = Loan.objects.all()  
     return render(request,"loan-list.html",{'loans':loans}) 
 
+@login_required(login_url='admin_login')
 def update_loan(request, id):  
     loan = Loan.objects.get(id=id)
     form = LoanForm(initial={'title': loan.title, 'description': loan.description, 'author': loan.author, 'year': loan.year})
@@ -50,6 +54,7 @@ def update_loan(request, id):
                 pass    
     return render(request,'loan-update.html',{'form':form})  
 
+@login_required(login_url='admin_login')
 def delete_loan(request, id):
     loan = Loan.objects.get(id=id)
     try:
@@ -57,3 +62,7 @@ def delete_loan(request, id):
     except:
         pass
     return redirect('loan-list')
+
+@login_required(login_url='admin_login')
+def admin_home(request):
+    return render(request, 'admin/home.html')    
