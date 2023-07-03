@@ -34,15 +34,15 @@ def create_loan(request):
     loan = serializer.save()
     return Response(serializer.data, status=status.HTTP_201_CREATED)
 
-@login_required(login_url='admin_login')
+#@login_required(login_url='admin_login')
 def list_loan(request):
     loans = Loan.objects.all()  
     return render(request,"loan-list.html",{'loans':loans}) 
 
-@login_required(login_url='admin_login')
+#@login_required(login_url='admin_login')
 def update_loan(request, id):  
     loan = Loan.objects.get(id=id)
-    form = LoanForm(initial={'title': loan.title, 'description': loan.description, 'author': loan.author, 'year': loan.year})
+    form = LoanForm(initial={'name': loan.name, 'surname': loan.surname, 'gender': loan.gender, 'email': loan.email, 'requested_amount':loan.requested_amount})
     if request.method == "POST":  
         form = LoanForm(request.POST, instance=loan)  
         if form.is_valid():  
@@ -54,7 +54,7 @@ def update_loan(request, id):
                 pass    
     return render(request,'loan-update.html',{'form':form})  
 
-@login_required(login_url='admin_login')
+#@login_required(login_url='admin_login')
 def delete_loan(request, id):
     loan = Loan.objects.get(id=id)
     try:

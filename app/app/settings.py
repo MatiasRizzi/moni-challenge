@@ -106,7 +106,7 @@ AUTHENTICATION_BACKENDS = [
     'django.contrib.auth.backends.ModelBackend',
 ]
 
-LOGIN_REDIRECT_URL = 'admin_home'
+LOGIN_REDIRECT_URL = '/api/loan-list'
 
 
 # Internationalization
