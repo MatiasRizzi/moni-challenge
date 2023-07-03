@@ -18,3 +18,23 @@ Contemplar casos de datos ingresados con errores.
 También se debe desarrollar un sitio de administración en el que se puedan ver los pedidos de préstamo, con la opción de editarlos y eliminarlos. A este sitio sólo pueden acceder usuarios administradores. No usar admin de Django.
 
 TODO How to initialize proyect 
+
+## setup for Django
+
+python3.9 -m venv venv
+source venv/bin/activate
+pip3 install requeriments
+
+pdate pip: `pip install -U pip`
+
+Installing packages `pip install -r requirements.txt`
+
+
+`cd app`
+migrate django tables `./manage.py migrate`
+run Django server `./manage.py runserver`
+
+create admin Django: `./manage.py createsuperuser`
+Create a loan through the admin panel
+
+Login (use credential admin recently created): `http://localhost:8000/accounts/login/`
