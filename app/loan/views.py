@@ -31,9 +31,10 @@ def create_loan(request):
     if not serializer.is_valid():
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    #TODO request JS
     loan = serializer.save()
     return Response(serializer.data, status=status.HTTP_201_CREATED)
-
+    
 #@login_required(login_url='admin_login')
 def list_loan(request):
     loans = Loan.objects.all()  
@@ -42,14 +43,14 @@ def list_loan(request):
 #@login_required(login_url='admin_login')
 def update_loan(request, id):  
     loan = Loan.objects.get(id=id)
-    form = LoanForm(initial={'name': loan.name, 'surname': loan.surname, 'gender': loan.gender, 'email': loan.email, 'requested_amount':loan.requested_amount})
+    form = LoanForm(initial={'number_dni': loan.number_dni,'name': loan.name, 'surname': loan.surname, 'gender': loan.gender, 'email': loan.email, 'requested_amount':loan.requested_amount})
     if request.method == "POST":  
         form = LoanForm(request.POST, instance=loan)  
         if form.is_valid():  
             try:  
                 form.save() 
                 model = form.instance
-                return redirect('/loan-list')  
+                return redirect('/api/loan-list')  
             except Exception as e: 
                 pass    
     return render(request,'loan-update.html',{'form':form})  
@@ -61,8 +62,4 @@ def delete_loan(request, id):
         loan.delete()
     except:
         pass
-    return redirect('loan-list')
-
-@login_required(login_url='admin_login')
-def admin_home(request):
-    return render(request, 'admin/home.html')    
+    return redirect('/api/loan-list')

@@ -5,7 +5,7 @@
     <form method="post">
         {% csrf_token %}
         {{form.as_p}}
-        <a type="button" class="btn btn-danger" href="{%url 'loan-list' %}">Cancel</a>
+        <a type="button" class="btn btn-danger" href="{% url 'loan_list' %}">Cancel</a>
         <button type="submit" class="btn btn-success">Update</button>
     </form>
 </div>

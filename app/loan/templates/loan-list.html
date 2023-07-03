@@ -23,8 +23,8 @@
                 <td>{{ loan.gender }}</td>
                 <td>{{ loan.email }}</td>
                 <td>{{ loan.requested_amount }}</td>
-                <td><a type="button" class="btn btn-warning" href="/loan-update/{{ loan.id }}">Update</a>
-                    <a type="button" class="btn btn-danger" href="/loan-delete/{{ loan.id }}">Delete</a>
+                <td><a type="button" class="btn btn-warning" href="/api/loan-update/{{ loan.id }}">Update</a>
+                    <a type="button" class="btn btn-danger" href="/api/loan-delete/{{ loan.id }}">Delete</a>
                 </td>
             </tr>
             {% endfor %}
